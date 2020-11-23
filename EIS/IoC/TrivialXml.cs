@@ -11,7 +11,7 @@ namespace IoC
         {
             var props = trivialObject.GetProperties();
 
-            var sb = new StringBuilder('<');
+            var sb = new StringBuilder("<");
             sb.Append(trivialObject.GetType().Name);
             sb.Append(">\n");
 

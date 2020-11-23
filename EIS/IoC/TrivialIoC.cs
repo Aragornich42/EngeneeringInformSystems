@@ -33,12 +33,12 @@ namespace IoC
         /// <summary>
         /// Лень заставила меня создавать класс с конструктором без параметров, поэтому... Товарищи! Создавайте дефолтные конструкторы!
         /// </summary>
-        public object Get<Intf>()
+        public Intf Get<Intf>()
         {
             var implType = _diDict[typeof(Intf)];
             if (implType == null)
                 throw new Exception("Вот сложно было заинжектить сначала?");
-            return Activator.CreateInstance(implType);
+            return (Intf) Activator.CreateInstance(implType);
         }
     }
 }

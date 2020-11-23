@@ -7,9 +7,9 @@ namespace EIS
 {
     class Program
     {
-        private static string serializer = ConfigurationManager.AppSettings["serializer"];
-        private static int labsNum = 4;
-        private static TrivialIoCC iocc = new TrivialIoCC();
+        private static string _serializer = ConfigurationManager.AppSettings["serializer"];
+        private static int _labsNum = 4;
+        private static TrivialIoCC _iocc = new TrivialIoCC();
 
         static void Main(string[] args)
         {
@@ -43,7 +43,7 @@ namespace EIS
                 return Menu();
             }
             else
-                return res > labsNum ? Menu() : res;
+                return res > _labsNum ? Menu() : res;
         }
 
         static void TemplateMethod()
@@ -62,34 +62,38 @@ namespace EIS
 
         static void IterPlusObserv()
         {
-            if (serializer == "xml")
-                iocc.Inject<ITrivialIntf, TrivialXml>();
-            else if (serializer == "json")
-                iocc.Inject<ITrivialIntf, TrivialJson>();
-
-            Console.WriteLine("В конфиге мы ждем " + serializer + " и в нашем контейнере имплементация для ITrivialIntf: " + iocc.Get<ITrivialIntf>());
-            Console.WriteLine();
-            Console.WriteLine("Начинаем скармливать сериализатору классы Apple, Car, Book:");
-
-            Console.WriteLine("Apple:");
-
-            Console.WriteLine();
-
-            Console.WriteLine("Car:");
-
-            Console.WriteLine();
-
-            Console.WriteLine("Book:");
-
-
-            Console.WriteLine();
+            Console.WriteLine(new NotImplementedException().Message);
             Console.WriteLine("Возврат в меню завезем в следующей обнове :)");
             Console.ReadKey();
         }
 
         static void IoC()
         {
-            Console.WriteLine(new NotImplementedException().Message);
+            if (_serializer == "xml")
+                _iocc.Inject<ITrivialIntf, TrivialXml>();
+            else if (_serializer == "json")
+                _iocc.Inject<ITrivialIntf, TrivialJson>();
+
+            var apple = new Apple();
+            var car = new Car();
+            var book = new Book();
+
+            Console.WriteLine("В конфиге мы ждем " + _serializer + " и в нашем контейнере имплементация для ITrivialIntf: " + _iocc.Get<ITrivialIntf>());
+            Console.WriteLine();
+            Console.WriteLine("Начинаем скармливать сериализатору классы Apple, Car, Book:");
+
+            Console.WriteLine("Apple:");
+            Console.WriteLine(_iocc.Get<ITrivialIntf>().TrivialSerializer(apple));
+            Console.WriteLine();
+
+            Console.WriteLine("Car:");
+            Console.WriteLine(_iocc.Get<ITrivialIntf>().TrivialSerializer(car));
+            Console.WriteLine();
+
+            Console.WriteLine("Book:");
+            Console.WriteLine(_iocc.Get<ITrivialIntf>().TrivialSerializer(book));
+
+            Console.WriteLine();
             Console.WriteLine("Возврат в меню завезем в следующей обнове :)");
             Console.ReadKey();
         }
