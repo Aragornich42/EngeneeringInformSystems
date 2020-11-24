@@ -14,7 +14,7 @@ namespace AbsFabAndBuilder
 
         public void SetComposer()
         {
-            _game.Composer = "Горди Хааб и Стивена Бартон";
+            _game.Composer = "Горди Хааб и Стивен Бартон";
         }
 
         public void SetGenre(IAbstractEAFabric concrete)

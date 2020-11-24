@@ -2,6 +2,7 @@
 using System.Configuration;
 using TempMethod;
 using IoC;
+using AbsFabAndBuilder;
 
 namespace EIS
 {
@@ -100,9 +101,35 @@ namespace EIS
 
         static void AbsFabPlusBuilder()
         {
-            Console.WriteLine(new NotImplementedException().Message);
+            Console.WriteLine("Начинаем клепать игры!");
+            Console.WriteLine();
+
+            var fifa = BuilderHub.CreateGame(new FIFABuilder(), new FIFA());
+            var starWars = BuilderHub.CreateGame(new StarWarsBuilder(), new StarWars());
+            var typical = BuilderHub.CreateGame(new TypicalEAGameBuilder(), null);
+
+            Console.WriteLine("Построили и произвели FIFA.");
+            ShowGameDescription(fifa);
+            Console.WriteLine();
+
+            Console.WriteLine("Построили и произвели Star Wars.");
+            ShowGameDescription(starWars);
+            Console.WriteLine();
+
+            Console.WriteLine("Построили и произвели типичную игру EA.");
+            ShowGameDescription(typical);
+            Console.WriteLine();
+
             Console.WriteLine("Возврат в меню завезем в следующей обнове :)");
             Console.ReadKey();
+        }
+
+        private static void ShowGameDescription(Game game)
+        {
+            Console.WriteLine("Композитор: " + (game.Composer == null ? "А зачем он нужен?" : game.Composer));
+            Console.WriteLine("Цветовой фон: " + (game.Color == null ? "А нет его" : game.Color));
+            Console.WriteLine("Сеттинг. " + (game.Setting == null ? "Это все прошлый век!" : game.Setting.ToString()));
+            Console.WriteLine("Оружие. " + (game.Weapon == null ? "Мы за мир! BLM!" : game.Weapon.ToString()));
         }
     }
 }

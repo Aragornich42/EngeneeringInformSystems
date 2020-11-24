@@ -9,5 +9,10 @@ namespace AbsFabAndBuilder
         public bool IsSteelArms { get; set; }
         public bool IsFirearms { get; set; }
         public string Name { get; set; }
+
+        public override string ToString()
+        {
+            return "холодное оружие: " + IsSteelArms + ", огнестрельное оружие: " + IsFirearms + ", название оружия: " + Name;
+        }
     }
 }
