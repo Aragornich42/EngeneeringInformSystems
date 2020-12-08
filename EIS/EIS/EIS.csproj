@@ -12,6 +12,7 @@
   <ItemGroup>
     <ProjectReference Include="..\AbsFabAndBuilder\AbsFabAndBuilder.csproj" />
     <ProjectReference Include="..\IoC\IoC.csproj" />
+    <ProjectReference Include="..\Iterators\Iterators.csproj" />
     <ProjectReference Include="..\TempMethod\TempMethod.csproj" />
   </ItemGroup>
 

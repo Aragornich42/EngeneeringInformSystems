@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TempMethod", "TempMethod\Te
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IoC", "IoC\IoC.csproj", "{F028E96E-2794-4B7A-90DB-84D7C7B47396}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AbsFabAndBuilder", "AbsFabAndBuilder\AbsFabAndBuilder.csproj", "{0831116F-383B-4104-B47C-8685BD73693D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AbsFabAndBuilder", "AbsFabAndBuilder\AbsFabAndBuilder.csproj", "{0831116F-383B-4104-B47C-8685BD73693D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Iterators", "Iterators\Iterators.csproj", "{1612932D-E033-4D19-A7CF-5B53A06621D0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{0831116F-383B-4104-B47C-8685BD73693D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0831116F-383B-4104-B47C-8685BD73693D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0831116F-383B-4104-B47C-8685BD73693D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1612932D-E033-4D19-A7CF-5B53A06621D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1612932D-E033-4D19-A7CF-5B53A06621D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1612932D-E033-4D19-A7CF-5B53A06621D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1612932D-E033-4D19-A7CF-5B53A06621D0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

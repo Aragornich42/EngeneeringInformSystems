@@ -1,15 +1,18 @@
 ﻿using System;
 using System.Configuration;
+using System.Text;
+using System.Diagnostics;
 using TempMethod;
 using IoC;
 using AbsFabAndBuilder;
+using Iterators;
 
 namespace EIS
 {
     class Program
     {
         private static string _serializer = ConfigurationManager.AppSettings["serializer"];
-        private static int _labsNum = 4;
+        private static int _labsNum = 7;
         private static TrivialIoCC _iocc = new TrivialIoCC();
 
         static void Main(string[] args)
@@ -22,6 +25,7 @@ namespace EIS
                 case 2: { IterPlusObserv(); break; }
                 case 3: { IoC(); break; }
                 case 4: { AbsFabPlusBuilder(); break; }
+                case 5: { GraphTraversal();  break; }
                 default: { Console.WriteLine("Что-то явно пошло не так :("); break; }
             }
         }
@@ -33,6 +37,7 @@ namespace EIS
             Console.WriteLine("2: Итератор и Наблюдатель.");
             Console.WriteLine("3: Инверсия управления.");
             Console.WriteLine("4: Абстрактная фабрика и Строитель.");
+            Console.WriteLine("5: Обход графа в глубину и в ширину с помощью паттерна Итератор");
             Console.WriteLine("Введите цифру (пожалуйста, именно цифру, мне лень было писать защиту от дурака) и нажмите на Enter:");
             var inp = Console.ReadLine();
             Console.WriteLine();
@@ -122,6 +127,76 @@ namespace EIS
 
             Console.WriteLine("Возврат в меню завезем в следующей обнове :)");
             Console.ReadKey();
+        }
+
+        static void GraphTraversal()
+        {
+            var stopWatch = new Stopwatch();
+
+            Console.WriteLine("Обходим графа и становимся маркизом");
+            Console.WriteLine("Создаем граф как дерево как структуру офисов продаж...");
+
+            var root = CreateTree();
+            Console.WriteLine("...дерево создано, начинаем обходы и сравнивание затраченного времени.");
+            Console.WriteLine();
+
+            var summ = 0;
+            stopWatch.Start();
+            var widthIterator = new WidthIterator(root);
+            foreach (var node in widthIterator)
+                summ += node.SucceededSales;
+            stopWatch.Stop();
+            Console.WriteLine("Сумма после обхода в ширину: " + summ);
+            Console.WriteLine("Затраченное время: " + stopWatch.ElapsedTicks + " ticks");
+            Console.WriteLine();
+            summ = 0;
+
+            root.Reset();
+            stopWatch.Start();
+            var depthIterator = new DepthIterator(root);
+            foreach (var node in depthIterator)
+                summ += node.SucceededSales;
+            stopWatch.Stop();
+            Console.WriteLine("Сумма после обхода в глубину: " + summ);
+            Console.WriteLine("Затраченное время: " + stopWatch.ElapsedTicks + " ticks");
+            Console.WriteLine();
+
+            Console.WriteLine("Возврат в меню завезем в следующей обнове :)");
+            Console.ReadKey();
+        }
+
+        private static Node CreateTree()
+        {
+            Console.WriteLine("Создаем корневое подразделение");
+            Node root = new Node();
+            var summ = root.SucceededSales;
+            Console.WriteLine("Число продаж в корневом подразделении: " + summ);
+
+            var sb = new StringBuilder("Число продаж в региональных офисах продаж: ");
+            root.GenerateChilds();
+            foreach(var ch in root.Childs)
+            {
+                summ += ch.SucceededSales;
+                sb.Append($"{ch.SucceededSales} ");
+            }
+            Console.WriteLine(sb.ToString());
+            sb.Clear();
+
+            sb.Append("Число продаж в локальных офисах продаж: ");
+            foreach (var ch in root.Childs)
+            {
+                ch.GenerateChilds();
+                foreach (var chch in ch.Childs)
+                {
+                    summ += chch.SucceededSales;
+                    sb.Append($"{chch.SucceededSales} ");
+                }
+            }
+            Console.WriteLine(sb.ToString());
+            Console.WriteLine("Итоговое число продаж: " + summ);
+
+            return root;
+            
         }
 
         private static void ShowGameDescription(Game game)
